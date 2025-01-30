@@ -15,5 +15,6 @@ provider "aws" {
 }
 
 module "awsApiGateway" {
-  source = "./modules/apiGateway"
+  source     = "./modules/apiGateway"
+  stage_name = "dev"
 }
