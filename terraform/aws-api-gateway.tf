@@ -1,13 +1,24 @@
-resource "aws_api_gateway_rest_api" "Test" {
-  name        = "TestAPI"
-  description = "This is my API for demonstration purposes"
+resource "aws_api_gateway_rest_api" "NotificatioQue" {
+  name        = "Notificatio Que"
+  description = "Api gateway for leco notification que"
   endpoint_configuration {
     types = ["REGIONAL"]
   }
 }
 
-resource "aws_api_gateway_resource" "Root" {
-  rest_api_id = aws_api_gateway_rest_api.Test.id
-  parent_id   = aws_api_gateway_rest_api.Test.root_resource_id
+# defining paths
+resource "aws_api_gateway_resource" "low_priority" {
+  rest_api_id = aws_api_gateway_rest_api.NotificatioQue.id
+  parent_id   = aws_api_gateway_rest_api.NotificatioQue.root_resource_id
+  path_part   = "low-priority"
+}
+resource "aws_api_gateway_resource" "normal_priority" {
+  rest_api_id = aws_api_gateway_rest_api.NotificatioQue.id
+  parent_id   = aws_api_gateway_rest_api.NotificatioQue.root_resource_id
   path_part   = "normal-priority"
+}
+resource "aws_api_gateway_resource" "high_priority" {
+  rest_api_id = aws_api_gateway_rest_api.NotificatioQue.id
+  parent_id   = aws_api_gateway_rest_api.NotificatioQue.root_resource_id
+  path_part   = "high-priority"
 }
