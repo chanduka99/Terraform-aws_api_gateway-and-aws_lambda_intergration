@@ -19,6 +19,7 @@
       resource_id = aws_api_gateway_resource.normal_priority.id
       http_method = aws_api_gateway_method.normal_priority_proxy.http_method
       integration_http_method = "POST"
+      passthrough_behavior = "WHEN_NO_TEMPLATES"
       type = "MOCK"
       }
 
