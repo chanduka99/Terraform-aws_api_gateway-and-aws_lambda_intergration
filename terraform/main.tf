@@ -32,6 +32,7 @@ module "apiGateway" {
   stage_name                           = "dev"
   get_status_enpoint_lambda_invoke_arn = module.apiGatewayControllers.get_status_enpoint_lambda_invoke_arn
   resend_endpoint_lambda_invoke_arn    = module.apiGatewayControllers.resend_endpoint_lambda_invoke_arn
+  binary_media_types                   = ["application/json"]
 }
 
 module "apiGatewayAndControllersIntergration" {
