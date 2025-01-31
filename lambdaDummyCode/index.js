@@ -5,7 +5,7 @@ export const handler = async function (event, context, callback) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      message: "Helllo from update DB function",
+      message: "Helllo from lambda",
     }),
   };
 

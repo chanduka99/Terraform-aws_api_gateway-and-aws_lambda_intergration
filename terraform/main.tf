@@ -9,17 +9,27 @@ terraform {
 
 
 provider "aws" {
-  region     = "ap-south-1"
+  region     = "ap-southeast-2"
   access_key = var.access_key
   secret_key = var.secret_key
 }
 
-module "awsApiGateway" {
-  source     = "./modules/apiGateway"
-  stage_name = "dev"
-}
-
 module "apiGatewayControllers" {
   source = "./modules/apiGateway.controllers"
+  # variables
   # stage_name = "dev"
+  resend_enpoint_lambda_name    = "notificationQue_resend_lambda"
+  resend_enpoint_lambda_handler = "index.handler"
+
+  get_status_enpoint_lambda_name    = "notificationQue_get_status_lambda"
+  get_status_enpoint_lambda_handler = "index.handler"
+}
+
+module "awsApiGateway" {
+  source     = "./modules/apiGateway"
+  depends_on = [module.apiGatewayControllers]
+  #variables
+  stage_name                           = "dev"
+  get_status_enpoint_lambda_invoke_arn = module.apiGatewayControllers.get_status_enpoint_lambda_invoke_arn
+  resend_endpoint_lambda_invoke_arn    = module.apiGatewayControllers.resend_endpoint_lambda_invoke_arn
 }

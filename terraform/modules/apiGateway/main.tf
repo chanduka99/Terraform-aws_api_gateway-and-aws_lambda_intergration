@@ -166,7 +166,8 @@ resource "aws_api_gateway_rest_api" "NotificatioQue" {
     resource_id = aws_api_gateway_resource.get_status.id
     http_method = aws_api_gateway_method.get_status_proxy.http_method
     integration_http_method = "GET"
-    type = "MOCK"
+    type = "AWS"
+    uri = var.get_status_enpoint_lambda_invoke_arn
     }
 
     # configure-get_status method response
@@ -212,7 +213,8 @@ resource "aws_api_gateway_rest_api" "NotificatioQue" {
     resource_id = aws_api_gateway_resource.resend.id
     http_method = aws_api_gateway_method.resend_proxy.http_method
     integration_http_method = "GET"
-    type = "MOCK"
+    type = "AWS"
+    uri = var.resend_endpoint_lambda_invoke_arn
     }
 
     # configure-resend method response

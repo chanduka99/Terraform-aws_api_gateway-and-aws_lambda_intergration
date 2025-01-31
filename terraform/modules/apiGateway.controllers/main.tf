@@ -1,35 +1,25 @@
-# zipped code for updating db
+# zipped dummmy code for the lambda functions
 data "archive_file" "lambda_package" {
   type = "zip"
-  source_file = "${path.module}/../../../lambdaCode/updateDb/index.js"
-  output_path = "index.zip"
+  source_file = "${path.module}/../../../lambdaDummyCode/index.js"
+  output_path = "${path.module}/../../../lambdaDummyCode/index.zip"
 }
 
 
-resource "aws_lambda_function" "test_lambda" {
-  filename      = "index.zip"
-  function_name = "lambda_function_name"
-  role          = aws_iam_role.iam_for_lambda.arn
-  handler       = "index.handler"
-  runtime       = "nodejs12.x"
+# lambda for the get-status endpoint
+resource "aws_lambda_function" "notificationQue_get_status_lambda" {
+  filename      = data.archive_file.lambda_package.output_path
+  function_name = var.get_status_enpoint_lambda_name
+  role          = aws_iam_role.iam_for_notificationQue_lambdas.arn
+  handler       = var.get_status_enpoint_lambda_handler
+  runtime       = "nodejs22.x"
 }
 
-resource "aws_iam_role" "iam_for_lambda" {
-  name = "iam_for_lambda"
-
-  # Terraform's "jsonencode" function converts a
-  # Terraform expression result to valid JSON syntax.
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Sid    = ""
-        Principal = {
-          Service = "lambda.amazonaws.com"
-        }
-      },
-    ]
-  })
+# lambda for the resend endpoint
+resource "aws_lambda_function" "notificationQue_resend_lambda" {
+  filename      = data.archive_file.lambda_package.output_path
+  function_name = var.resend_enpoint_lambda_name
+  role          = aws_iam_role.iam_for_notificationQue_lambdas.arn
+  handler       = var.resend_enpoint_lambda_handler
+  runtime       = "nodejs22.x"
 }
