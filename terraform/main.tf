@@ -18,3 +18,8 @@ module "awsApiGateway" {
   source     = "./modules/apiGateway"
   stage_name = "dev"
 }
+
+module "apiGatewayControllers" {
+  source = "./modules/apiGateway.controllers"
+  # stage_name = "dev"
+}
