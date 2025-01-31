@@ -1,7 +1,7 @@
 # zipped dummmy code for the lambda functions
 data "archive_file" "lambda_package" {
   type = "zip"
-  source_file = "${path.module}/../../../lambdaDummyCode/index.js"
+  source_file = "${path.module}/../../../lambdaDummyCode/index.mjs"
   output_path = "${path.module}/../../../lambdaDummyCode/index.zip"
 }
 

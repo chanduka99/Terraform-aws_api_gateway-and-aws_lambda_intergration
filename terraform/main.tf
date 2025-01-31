@@ -25,11 +25,20 @@ module "apiGatewayControllers" {
   get_status_enpoint_lambda_handler = "index.handler"
 }
 
-module "awsApiGateway" {
+module "apiGateway" {
   source     = "./modules/apiGateway"
   depends_on = [module.apiGatewayControllers]
   #variables
   stage_name                           = "dev"
   get_status_enpoint_lambda_invoke_arn = module.apiGatewayControllers.get_status_enpoint_lambda_invoke_arn
   resend_endpoint_lambda_invoke_arn    = module.apiGatewayControllers.resend_endpoint_lambda_invoke_arn
+}
+
+module "apiGatewayAndControllersIntergration" {
+  source     = "./modules/apiGateway.controllers.intergration"
+  depends_on = [module.apiGateway, module.apiGatewayControllers]
+  # variables
+  apiGateway_source_execution_arn = "${module.apiGateway.apiGateway_source_execution_arn}/*/*/*"
+  get_status_enpoint_lambda_name  = module.apiGatewayControllers.get_status_enpoint_lambda_name
+  resend_enpoint_lambda_name      = module.apiGatewayControllers.resend_enpoint_lambda_name
 }
