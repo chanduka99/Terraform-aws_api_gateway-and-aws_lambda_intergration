@@ -3,7 +3,7 @@
     resource "aws_api_gateway_resource" "normal_priority" {
       rest_api_id = aws_api_gateway_rest_api.NotificatioQue.id
       parent_id   = aws_api_gateway_rest_api.NotificatioQue.root_resource_id
-      path_part   = "normal-priority"
+      path_part   = var.normal_priority_enpoint_path_name
     }
 #configure-normal priority method
       resource "aws_api_gateway_method" "normal_priority_proxy" {

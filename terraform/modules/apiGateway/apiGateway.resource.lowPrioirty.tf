@@ -3,7 +3,7 @@
     resource "aws_api_gateway_resource" "low_priority" {
     rest_api_id = aws_api_gateway_rest_api.NotificatioQue.id
     parent_id   = aws_api_gateway_rest_api.NotificatioQue.root_resource_id
-    path_part   = "low-priority"
+    path_part   = var.low_priority_endpoint_path_name
     }
 
     #configure-low priority method

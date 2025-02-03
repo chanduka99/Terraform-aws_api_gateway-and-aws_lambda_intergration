@@ -31,8 +31,16 @@ module "apiGateway" {
   #variables
   stage_name                           = "dev"
   get_status_enpoint_lambda_invoke_arn = module.apiGatewayControllers.get_status_enpoint_lambda_invoke_arn
-  resend_endpoint_lambda_invoke_arn    = module.apiGatewayControllers.resend_endpoint_lambda_invoke_arn
-  binary_media_types                   = ["application/json"]
+  get_status_enpoint_path_name         = "get-status"
+
+  resend_endpoint_lambda_invoke_arn = module.apiGatewayControllers.resend_endpoint_lambda_invoke_arn
+  resend_endpoint_path_name         = "resend"
+
+  high_priority_endpoint_path_name  = "high-priority"
+  normal_priority_enpoint_path_name = "normal-priority"
+  low_priority_endpoint_path_name   = "low-priority"
+
+  binary_media_types = ["application/json"]
 }
 
 module "apiGatewayAndControllersIntergration" {
